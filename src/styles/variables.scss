@@ -1,0 +1,16 @@
+.text-subtitle-1{
+    font-family: 'Space Mono', monospace !important;
+}
+
+.v-card{
+    border-radius: 20px !important;
+}
+
+.v-field__overlay {
+    background-color: var(--vlg-cyan);
+}
+
+.v-btn.v-btn--density-default {
+    height: calc(var(--v-btn-height) + 0px);
+    width: 7rem;
+}
