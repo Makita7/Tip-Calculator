@@ -14,3 +14,8 @@
     height: calc(var(--v-btn-height) + 0px);
     width: 7rem;
 }
+
+.v-text-field .v-field--no-label input, .v-text-field .v-field--active input {
+    opacity: 1;
+    text-align: right;
+}

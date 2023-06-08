@@ -1,17 +1,64 @@
 <script>
 
-
+export default(await import('vue')).defineComponent({
+    data() {
+        return{
+            bill: '',
+            numOfPeople: '',
+            tipAmount: 0,
+            total: 0,
+            customBtn: false,
+            custom: '',
+            percent: '',
+            error: false,
+        }
+    },
+    methods: {
+        Percent(p){
+            this.percent = String(p);
+        },
+        Split(){
+            if(this.bill && this.numOfPeople && this.tipAmount != null || undefined || 0 ){
+                const tip = Number(this.percent) * Number(this.bill) / 100;
+                this.tipAmount = tip / Number(this.numOfPeople);
+                this.total = Number(this.bill) / Number(this.numOfPeople) + tip;
+            } else {
+                this.error = true
+                setTimeout(() => {
+                    this.error = false
+                }, "2000");
+            }
+        },
+        Reset(){
+            this.bill = '';
+            this.numOfPeople = '';
+            this.tipAmount = 0;
+            this.total = 0;
+            this.custom = '';
+            this.percent = '';
+            this.customBtn = false;
+        },
+    },
+})
 
 </script>
 
 
+/* TODO:
+    - Add condition to make sure that all inputs are not empty
+    - add custom btn input when true
+    - divide methods, one for setting the percent and another to do the division
+*/
+
+
 <template>
     <div class="tips align-center">
+        <p v-if="error">error</p>
         <v-card>
             <div class="d-flex">
                 <v-col cols="6 pa-6">
                     <p class="subtitle text-capitalize font-weight-bold text-gray mb-1">bill</p>
-                    <v-text-field v-model="billInput" class="elevation-0 lightInputs" variant='solo' density="comfortable">
+                    <v-text-field placeholder="0" v-model="bill" class="elevation-0 lightInputs" variant='solo' density="comfortable" type="number">
                         <template v-slot:prepend-inner>
                             <v-icon
                                 icon="mdi-currency-usd"
@@ -20,19 +67,19 @@
                     </v-text-field>
                     <p class="subtitle text-capitalize font-weight-bold text-gray mt-3">Select Tip %</p>
                     <div class="d-flex justify-space-around">
-                        <v-btn class="ma-2 bg-secondary font-weight-bold">5%</v-btn>
-                        <v-btn class="ma-2 bg-secondary font-weight-bold">10%</v-btn>
-                        <v-btn class="ma-2 bg-secondary font-weight-bold">15%</v-btn>
+                        <v-btn class="ma-2 bg-secondary font-weight-bold" @click="Percent(5)">5%</v-btn>
+                        <v-btn class="ma-2 bg-secondary font-weight-bold" @click="Percent(10)">10%</v-btn>
+                        <v-btn class="ma-2 bg-secondary font-weight-bold" @click="Percent(15)">15%</v-btn>
                     </div>
                     <div class="d-flex justify-space-around">
-                        <v-btn class="ma-2 bg-secondary font-weight-bold">25%</v-btn>
-                        <v-btn class="ma-2 bg-secondary font-weight-bold">50%</v-btn>
-                        <v-btn class="ma-2 bg-veryLCyan font-weight-bold text-gray">Custom</v-btn>
+                        <v-btn class="ma-2 bg-secondary font-weight-bold" @click="Percent(25)">25%</v-btn>
+                        <v-btn class="ma-2 bg-secondary font-weight-bold" @click="Percent(50)">50%</v-btn>
+                        <v-btn class="ma-2 bg-veryLCyan font-weight-bold text-gray" @click="customBtn = !customBtn">Custom</v-btn>
                     </div>
 
 
                     <p class="subtitle text-capitalize font-weight-bold text-gray mt-3 mb-1">Number of People</p>
-                    <v-text-field v-model="billInput" class="elevation-0" hide-details variant='solo' density="comfortable">
+                    <v-text-field placeholder="0" v-model="numOfPeople" class="elevation-0" hide-details variant='solo' density="comfortable" type="number">
                         <template v-slot:prepend-inner>
                             <v-icon
                                 icon="mdi-account"
@@ -49,7 +96,7 @@
                                     <p class="text-lCyan font-weight-bold person">/ person</p>
                                 </v-col>
                                 <v-col class="text-right">
-                                    <p class="num">$0.00</p>
+                                    <p class="num">${{tipAmount.toFixed(2)}}</p>
                                 </v-col>
                             </div>
                             <div class="d-flex pt-2 pb-2">
@@ -58,7 +105,7 @@
                                     <p class="text-lCyan font-weight-bold person">/ person</p>
                                 </v-col>
                                 <v-col cols="6" class="text-right">
-                                    <p class="num">$0.00</p>
+                                    <p class="num">${{ total.toFixed(2) }}</p>
                                 </v-col>
                             </div>
                         </div>
@@ -66,7 +113,17 @@
                             variant="flat"
                             block
                             color="primary"
-                            class="font-weight-bold mb-4 mt-6"
+                            class="font-weight-bold mt-6"
+                            @click="Split()"
+                        >
+                            Split Bill
+                        </v-btn>
+                        <v-btn
+                            variant="flat"
+                            block
+                            color="gray"
+                            class="font-weight-bold mb-4"
+                            @click="Reset()"
                         >
                             Reset
                         </v-btn>
@@ -79,7 +136,7 @@
 
 <style lang="scss">
 .tips{
-    max-width: 54rem;
+    max-width: 60rem;
     margin-left: auto;
     margin-right: auto;
     .darkcard{
