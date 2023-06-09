@@ -1,6 +1,7 @@
 <script>
+import { defineComponent } from 'vue';
 
-export default(await import('vue')).defineComponent({
+export default defineComponent({
     data() {
         return{
             bill: '',

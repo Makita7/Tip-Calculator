@@ -3,7 +3,7 @@ import StartView from '../views/StartView.vue';
 import TipCal from '../views/TipCalView.vue';
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             name:'',
