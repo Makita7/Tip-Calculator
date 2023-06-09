@@ -40,8 +40,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [LINK](https://your-solution-url.com)
-- Live Site URL: [LINK](https://your-live-site-url.com)
+- Solution URL: [LINK](https://www.frontendmentor.io/solutions/vue-3-tip-calculator-kfHrkUiWkY)
+- Live Site URL: [LINK](https://makita7.github.io/Tip-Calculator/)
 
 ## My process
     In general I try to map out the layout with mock data and then I start building the actual methods to make it work.
