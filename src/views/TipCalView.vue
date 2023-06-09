@@ -50,13 +50,6 @@ export default(await import('vue')).defineComponent({
         <p class="text-center mb-4 text-uppercase text-cyanG font-weight-bold splitter">
             Spli <br/>tter
         </p>
-        <v-alert
-            v-if="error"
-            class="alerts"
-            icon="$warning"
-            type="error"
-            title="You Haven't selected all the fields"
-        />
 
         <v-card class="waitCard">
             <div class="d-flex">
@@ -138,6 +131,14 @@ export default(await import('vue')).defineComponent({
                 </v-col>
             </div>
         </v-card>
+
+        <v-alert
+            v-if="error"
+            class="alerts mt-4"
+            icon="$warning"
+            type="warning"
+            title="You need to have a selection for each field"
+        />
     </div>
 </template>
 
