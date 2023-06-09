@@ -15,6 +15,7 @@ export default(await import('vue')).defineComponent({
     },
     methods: {
         Percent(p){
+            this.customBtn = false;
             this.percent = String(p);
         },
         Split(){
@@ -26,7 +27,7 @@ export default(await import('vue')).defineComponent({
                 this.error = true
                 setTimeout(() => {
                     this.error = false
-                }, "2000");
+                }, "4000");
             }
         },
         Reset(){
@@ -44,19 +45,22 @@ export default(await import('vue')).defineComponent({
 </script>
 
 
-/* TODO:
-    - Add condition to make sure that all inputs are not empty
-    - add custom btn input when true
-    - divide methods, one for setting the percent and another to do the division
-*/
-
-
 <template>
     <div class="tips align-center">
-        <p v-if="error">error</p>
-        <v-card>
+        <p class="text-center mb-4 text-uppercase text-cyanG font-weight-bold splitter">
+            Spli <br/>tter
+        </p>
+        <v-alert
+            v-if="error"
+            class="alerts"
+            icon="$warning"
+            type="error"
+            title="You Haven't selected all the fields"
+        />
+
+        <v-card class="waitCard">
             <div class="d-flex">
-                <v-col cols="6 pa-6">
+                <v-col cols="6" class="pa-6">
                     <p class="subtitle text-capitalize font-weight-bold text-gray mb-1">bill</p>
                     <v-text-field placeholder="0" v-model="bill" class="elevation-0 lightInputs" variant='solo' density="comfortable" type="number">
                         <template v-slot:prepend-inner>
@@ -67,14 +71,17 @@ export default(await import('vue')).defineComponent({
                     </v-text-field>
                     <p class="subtitle text-capitalize font-weight-bold text-gray mt-3">Select Tip %</p>
                     <div class="d-flex justify-space-around">
-                        <v-btn class="ma-2 bg-secondary font-weight-bold" @click="Percent(5)">5%</v-btn>
-                        <v-btn class="ma-2 bg-secondary font-weight-bold" @click="Percent(10)">10%</v-btn>
-                        <v-btn class="ma-2 bg-secondary font-weight-bold" @click="Percent(15)">15%</v-btn>
+                        <v-btn class="ma-2 bg-secondary font-weight-bold elevation-0" @click="Percent(5)">5%</v-btn>
+                        <v-btn class="ma-2 bg-secondary font-weight-bold elevation-0" @click="Percent(10)">10%</v-btn>
+                        <v-btn class="ma-2 bg-secondary font-weight-bold elevation-0" @click="Percent(15)">15%</v-btn>
                     </div>
                     <div class="d-flex justify-space-around">
-                        <v-btn class="ma-2 bg-secondary font-weight-bold" @click="Percent(25)">25%</v-btn>
-                        <v-btn class="ma-2 bg-secondary font-weight-bold" @click="Percent(50)">50%</v-btn>
-                        <v-btn class="ma-2 bg-veryLCyan font-weight-bold text-gray" @click="customBtn = !customBtn">Custom</v-btn>
+                        <v-btn class="ma-2 bg-secondary font-weight-bold elevation-0" @click="Percent(25)">25%</v-btn>
+                        <v-btn class="ma-2 bg-secondary font-weight-bold elevation-0" @click="Percent(50)">50%</v-btn>
+                        <v-btn v-if="!customBtn" class="ma-2 bg-veryLCyan font-weight-bold text-gray elevation-0" @click="customBtn = true" >Custom</v-btn>
+                        <div class="customInput mr-2 ml-2 mb-0" v-else >
+                            <v-text-field placefolder="Custom" variant="solo" class="elevation-0" type="number" density="comfortable" hide-details v-model="percent"/>
+                        </div>
                     </div>
 
 
@@ -100,11 +107,11 @@ export default(await import('vue')).defineComponent({
                                 </v-col>
                             </div>
                             <div class="d-flex pt-2 pb-2">
-                                <v-col cols="6" class="">
+                                <v-col class="">
                                     <p class="text-capitalize text-white font-weight-bold" color="white">total</p>
                                     <p class="text-lCyan font-weight-bold person">/ person</p>
                                 </v-col>
-                                <v-col cols="6" class="text-right">
+                                <v-col class="text-right">
                                     <p class="num">${{ total.toFixed(2) }}</p>
                                 </v-col>
                             </div>
@@ -113,7 +120,7 @@ export default(await import('vue')).defineComponent({
                             variant="flat"
                             block
                             color="primary"
-                            class="font-weight-bold mt-6"
+                            class="font-weight-bold mt-6 elevation-0"
                             @click="Split()"
                         >
                             Split Bill
@@ -122,7 +129,7 @@ export default(await import('vue')).defineComponent({
                             variant="flat"
                             block
                             color="gray"
-                            class="font-weight-bold mb-4"
+                            class="font-weight-bold mb-4 elevation-0"
                             @click="Reset()"
                         >
                             Reset
@@ -154,6 +161,55 @@ export default(await import('vue')).defineComponent({
         }
         .person{
             font-size: 0.8rem;
+        }
+    }
+    .customInput{
+        width: 7rem;
+    }
+    .alerts{
+        border-radius: 10px;
+        animation: fadeIn 4000ms ease-in-out;
+    }
+
+    @keyframes fadeIn{
+        0%{
+            opacity: 0;
+        }
+        25%{
+            opacity: 1;
+        }
+        75%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 0;
+        }
+    }
+
+    .waitCard{
+        animation: waitC 500ms;
+        animation-fill-mode: both;
+    }
+    @keyframes waitC{
+        from{
+            opacity: 0;
+        }
+        to{
+            opacity: 1;
+        }
+    }
+
+
+    .splitter{
+        animation: scaleIn 500ms;
+        font-size: 1.2rem;
+    }
+    @keyframes scaleIn{
+        from{
+            font-size: 4rem;
+        }
+        to{
+            font-size: 1.2rem;
         }
     }
 }
