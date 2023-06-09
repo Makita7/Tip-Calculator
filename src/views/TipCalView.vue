@@ -52,8 +52,8 @@ export default(await import('vue')).defineComponent({
         </p>
 
         <v-card class="waitCard">
-            <div class="d-flex">
-                <v-col cols="6" class="pa-6">
+            <div class="d-flex colDirection">
+                <v-col md="6" sm="auto" class="pa-6">
                     <p class="subtitle text-capitalize font-weight-bold text-gray mb-1">bill</p>
                     <v-text-field placeholder="0" v-model="bill" class="elevation-0 lightInputs" variant='solo' density="comfortable" type="number">
                         <template v-slot:prepend-inner>
@@ -63,12 +63,12 @@ export default(await import('vue')).defineComponent({
                         </template>
                     </v-text-field>
                     <p class="subtitle text-capitalize font-weight-bold text-gray mt-3">Select Tip %</p>
-                    <div class="d-flex justify-space-around">
+                    <div class="d-flex justify-space-around smPad">
                         <v-btn class="ma-2 bg-secondary font-weight-bold elevation-0" @click="Percent(5)">5%</v-btn>
                         <v-btn class="ma-2 bg-secondary font-weight-bold elevation-0" @click="Percent(10)">10%</v-btn>
                         <v-btn class="ma-2 bg-secondary font-weight-bold elevation-0" @click="Percent(15)">15%</v-btn>
                     </div>
-                    <div class="d-flex justify-space-around">
+                    <div class="d-flex justify-space-around smPad">
                         <v-btn class="ma-2 bg-secondary font-weight-bold elevation-0" @click="Percent(25)">25%</v-btn>
                         <v-btn class="ma-2 bg-secondary font-weight-bold elevation-0" @click="Percent(50)">50%</v-btn>
                         <v-btn v-if="!customBtn" class="ma-2 bg-veryLCyan font-weight-bold text-gray elevation-0" @click="customBtn = true" >Custom</v-btn>
@@ -87,7 +87,7 @@ export default(await import('vue')).defineComponent({
                         </template>
                     </v-text-field>
                 </v-col>
-                <v-col cols="6" class="pa-6">
+                <v-col md="6" sm="auto" class="pa-6">
                     <v-row justify="space-between" class="darkcard pr-8 pl-8" style="align-items: center;">
                         <div class="mt-4 w-100">
                             <div class="d-flex pt-2 pb-2">
@@ -190,6 +190,11 @@ export default(await import('vue')).defineComponent({
     .waitCard{
         animation: waitC 500ms;
         animation-fill-mode: both;
+        @media screen and (max-width: 960px){
+            .colDirection{
+                flex-direction: column;
+            }
+        }
     }
     @keyframes waitC{
         from{
