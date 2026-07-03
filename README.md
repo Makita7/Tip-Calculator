@@ -15,8 +15,6 @@ This is a solution to the [Tip calculator app challenge on Frontend Mentor](http
   - [Useful resources](#useful-resources)
 - [Author](#author)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
 ## Start Project
 
     - git pull https://github.com/Makita7/Tip-Calculator.git
@@ -60,8 +58,6 @@ I did this project with the intent of learning:
     - Practicing basic JS
     - Basic CSS Animations
 
-
-**Note: Delete this note and the content within this section and replace with your own learnings.**
 
 ### Useful resources
 
